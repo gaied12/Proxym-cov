@@ -80,6 +80,12 @@ public class PublicationTrajetSerciceImpl implements PublicationTrajetSercice {
     }
 
     @Override
+    public Optional<PublicationTrajet> findById(long publicationTrajetId) {
+        return publicationTrajetRepository.findById(publicationTrajetId);
+    }
+
+
+    @Override
     public void save(Publication publication) {
         PublicationTrajet publicationTrajet = new PublicationTrajet();
 

@@ -1,15 +1,12 @@
 package com.cov.covproxym.model;
 
 import com.fasterxml.jackson.annotation.*;
-import groovy.transform.EqualsAndHashCode;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "publicationtrajets")
@@ -22,6 +19,7 @@ public class PublicationTrajet implements Serializable {
     @Column (name = "id",unique = true,nullable = false)
     private long id;
     @Column(name = "nbre de place ",nullable = false)
+    @Max(4)
     private int nbr_place;
     @Column(name = "heure_depart")
     private String heure_depart;

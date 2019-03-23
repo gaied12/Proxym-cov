@@ -6,6 +6,7 @@ import com.cov.covproxym.Service.PublicationTrajetSercice;
 import com.cov.covproxym.Service.TrajetService;
 import com.cov.covproxym.exception.NotFoundException;
 import com.cov.covproxym.model.PublicationTrajet;
+import com.cov.covproxym.model.User;
 import com.cov.covproxym.utils.Publication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -36,6 +37,7 @@ public class PublicationTrajetController {
 
 
 
+
     @RequestMapping(value = "/modify/{id}", method = RequestMethod.PUT)
     public ResponseEntity<?> updatepub(@PathVariable long id, @RequestBody PublicationTrajet publicationTrajet) {
         return publicationtrajetService.updatepub(id, publicationTrajet);
@@ -43,11 +45,13 @@ public class PublicationTrajetController {
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<String> deletepub(@PathVariable long id) {
+
         return publicationtrajetService.deletepub(id);
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
     public ResponseEntity<String> deletall() {
+
         return publicationtrajetService.deleteall();
     }
 

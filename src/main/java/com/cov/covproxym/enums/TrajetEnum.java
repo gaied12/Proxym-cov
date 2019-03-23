@@ -4,6 +4,8 @@ public enum TrajetEnum {
    TRAJET1("Direction sahoul","pépenieur","sahloul"),
     TRAJET2("Direction cité riadh","pépenieur","cité radth");
 
+
+
     private String trajetName;
     private String trajetFrom;
     private String trajetTo;

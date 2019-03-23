@@ -16,6 +16,7 @@ public interface PublicationTrajetSercice {
     public ResponseEntity <String>deleteall();
     public List <PublicationTrajet> showpubs ();
 
+    Optional<PublicationTrajet> findById (long publicationTrajetId) ;
     public void save (Publication publication) ;
 
         // public List<PublicationTrajet> showpub(long id) ;
