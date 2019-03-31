@@ -26,6 +26,7 @@ public class Trajet implements Serializable {
 
 
     public String getNomTrajet() {
+
         return nomTrajet;
     }
 

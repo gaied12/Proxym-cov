@@ -23,6 +23,7 @@ public class TrajetController {
     }
     @RequestMapping(value = "t/add",method = RequestMethod.GET)
     public List<Trajet> trajets(){
+
         return trajetService.trajets();
     }
     @RequestMapping(value = "t/add/{id}",method = RequestMethod.GET)

@@ -1,0 +1,57 @@
+version: 1
+
+dn: uid=john,ou=people,dc=abc,dc=com
+objectClass: inetOrgPerson
+objectClass: person
+objectClass: organizationalPerson
+objectClass: top
+cn: jhon
+sn: jhon ali
+uid: john
+userPassword: {SSHA}/rl4YRTNHLuXONQX5wwpKnCEMF2YizdLtFfNBg==
+
+dn: dc=abc,dc=com
+objectclass: top
+objectclass: domain
+dc: abc
+
+dn: ou=people,dc=abc,dc=com
+objectClass: organizationalUnit
+objectClass: top
+ou: people
+
+dn: uid=oussama12,ou=people,dc=abc,dc=com
+objectClass: inetOrgPerson
+objectClass: person
+objectClass: organizationalPerson
+objectClass: top
+cn: oussama
+sn: gaied
+uid: oussama12
+userPassword: {SSHA}kiraUb6iytGfd4hrpmisKi+O6/LFYDCSXTYyfA==
+
+dn: uid=ali12,ou=people,dc=abc,dc=com
+objectClass: organizationalPerson
+objectClass: person
+objectClass: inetOrgPerson
+objectClass: top
+cn: ali
+sn: kjb
+uid: ali12
+CC: {SSHA}LozcTk3vLuBb5hKm4pz4UzfjE8VfjrPo8KS53A==
+
+dn: cn=developers+ou=groups,dc=abc,dc=com
+objectClass: groupOfUniqueNames
+objectClass: top
+cn: developers
+uniqueMember: uid=ali12,ou=people,dc=abc,dc=com
+uniqueMember: uid=john,ou=people,dc=abc,dc=com
+ou: groups
+
+dn: cn=managers+ou=manager,dc=abc,dc=com
+objectClass: groupOfUniqueNames
+objectClass: top
+cn: managers
+uniqueMember: uid=oussama12,ou=people,dc=abc,dc=com
+ou: manager
+

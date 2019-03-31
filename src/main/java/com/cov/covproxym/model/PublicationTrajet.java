@@ -19,7 +19,7 @@ public class PublicationTrajet implements Serializable {
     @Column (name = "id",unique = true,nullable = false)
     private long id;
     @Column(name = "nbre de place ",nullable = false)
-    @Max(4)
+    @Max(5)
     private int nbr_place;
     @Column(name = "heure_depart")
     private String heure_depart;

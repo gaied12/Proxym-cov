@@ -2,16 +2,13 @@ package com.cov.covproxym.controller;
 
 import com.cov.covproxym.Service.PublicationTrajetSercice;
 import com.cov.covproxym.Service.ReservationService;
-import com.cov.covproxym.model.PublicationTrajet;
-import com.cov.covproxym.utils.Publication;
+import com.cov.covproxym.model.Reservation;
 import com.cov.covproxym.utils.ReservationDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -23,13 +20,21 @@ public class ReservationController {
     @Autowired
     PublicationTrajetSercice publicationTrajetSercice ;
 
-    @RequestMapping(value = "/res", method = RequestMethod.POST)
+
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
     public Map<String, Boolean> save(@RequestBody ReservationDto reservationDto) {
 
            reservationService.save(reservationDto);
 
         return Collections.singletonMap("success", true);
     }
-
+@RequestMapping(value = "/show/{id}",method =RequestMethod.GET )
+    public Optional <Reservation> show (@PathVariable long id){
+       return reservationService.ShowReservation(id);
+}
+@RequestMapping (value ="/show/all",method = RequestMethod.GET)
+public List<Reservation> showAlll(){
+    return reservationService.resrvation()   ;
+}
 
 }

@@ -59,7 +59,7 @@ public class PublicationTrajetSerciceImpl implements PublicationTrajetSercice {
             return new ResponseEntity<>("Pub Deleted", HttpStatus.OK);
 
         }
-        return new ResponseEntity<>("Pub Deleted", HttpStatus.OK);
+        return new ResponseEntity<>("pub Not Found", HttpStatus.NOT_FOUND);
 
 
     }

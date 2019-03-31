@@ -29,13 +29,12 @@ public class PublicationTrajetController {
     TrajetRepository trajetRepository;
     @Autowired
     TrajetService trajetService;
+
     @RequestMapping(value = "/pub", method = RequestMethod.POST)
     public Map<String, Boolean> save(@RequestBody Publication publication) {
         publicationtrajetService.save(publication);
         return Collections.singletonMap("success", true);
     }
-
-
 
 
     @RequestMapping(value = "/modify/{id}", method = RequestMethod.PUT)
