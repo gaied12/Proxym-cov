@@ -11,4 +11,5 @@ import java.util.List;
 public interface LoginService {
 public void authenticated (String pass,String username) throws Exception;
 public List<String> getAllPersonNames() ;
+public List<String>gellAllPassword();
 }

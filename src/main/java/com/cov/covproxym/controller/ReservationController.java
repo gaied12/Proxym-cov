@@ -30,11 +30,13 @@ public class ReservationController {
     }
 @RequestMapping(value = "/show/{id}",method =RequestMethod.GET )
     public Optional <Reservation> show (@PathVariable long id){
-       return reservationService.ShowReservation(id);
+
+        return reservationService.ShowReservation(id);
 }
 @RequestMapping (value ="/show/all",method = RequestMethod.GET)
 public List<Reservation> showAlll(){
-    return reservationService.resrvation()   ;
+
+        return reservationService.resrvation()   ;
 }
 
 }
