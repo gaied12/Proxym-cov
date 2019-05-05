@@ -3,8 +3,7 @@ package com.cov.covproxym.Service;
 import com.cov.covproxym.Repository.PublicationTrajetRepository;
 import com.cov.covproxym.Repository.ReservationRepository;
 import com.cov.covproxym.Repository.UserRepository;
-import com.cov.covproxym.exception.NoPlaceAvailableException;
-import com.cov.covproxym.exception.NoUser;
+import com.cov.covproxym.exception.ApplicationException;
 import com.cov.covproxym.model.PublicationTrajet;
 import com.cov.covproxym.model.Reservation;
 import com.cov.covproxym.model.User;
@@ -34,35 +33,47 @@ public class ReservationServiceImpl implements ReservationService {
     @Override
     public void save(ReservationDto reservationDto) {
         Reservation reservation = new Reservation();
-        Optional<User> user = userRepository.findById(reservationDto.getUserId());
-        if (user.isPresent()) reservation.setUser(user.get());
-        Optional<PublicationTrajet> publicationTrajet = publicationTrajetRepository.findById(reservationDto.getPublicationId());
-        if (publicationTrajet.isPresent()) reservation.setPublicationTrajet(publicationTrajet.get());
-       Integer nbPlaceFromPublication = publicationTrajet.get().getNbr_place();
+        User user=null;
+        PublicationTrajet publicationTrajet=null;
+        Optional<User> userOptional = userRepository.findById(reservationDto.getUserId());
+        if (userOptional.isPresent()){
+            user=userOptional.get();
+            reservation.setUser( user);
 
-       List<Reservation> list = reservationRepository.findAllByPublicationTrajet(publicationTrajet.get());
-       Integer nbPlaceFromReservation = list.size();
-       if (nbPlaceFromPublication == nbPlaceFromReservation || nbPlaceFromReservation > nbPlaceFromPublication)
-             throw new NoPlaceAvailableException();
+        }
 
-
-    Optional<Reservation> UserFromReservation=reservationRepository.findAllByUser(user.get());
-      if (UserFromReservation.isPresent())
-
-        throw new NoUser();
-
-
-        reservationRepository.save(reservation);
+        Optional<PublicationTrajet> publicationTrajetOptional = publicationTrajetRepository.findById(reservationDto.getPublicationId());
+        if (publicationTrajetOptional.isPresent()){
+            publicationTrajet=publicationTrajetOptional.get();
+            reservation.setPublicationTrajet(publicationTrajet);
+        }
+        if (user==null  || publicationTrajet==null) {
+         //TODO create exception
+        }
 
 
 
+        Optional<Reservation> checkExistingReservation = this.reservationRepository.findFirsByUserAndPublicationTrajet(user, publicationTrajet);
+         if (checkExistingReservation.isPresent()) {
+             throw new ApplicationException("dublicated reservation exception", "102");
+
+         }
+
+        Integer nbPlaceFromPublication =publicationTrajet.getNombreDePlace();
+
+        List<Reservation> list = reservationRepository.findAllByPublicationTrajet(publicationTrajet);
+        Integer nbPlaceFromReservation = list.size();
+        if (nbPlaceFromPublication == nbPlaceFromReservation || nbPlaceFromReservation > nbPlaceFromPublication)
+            throw new ApplicationException("no_place_available", "102");
+       publicationTrajet.getReservations().add(reservation);
+       this.publicationTrajetRepository.save(publicationTrajet);
     }
 
     @Override
     public List<Reservation> resrvation() {
-        List <Reservation> list=new ArrayList<>();
+        List<Reservation> list = new ArrayList<>();
         reservationRepository.findAll().forEach(list::add);
-        return list ;
+        return list;
 
     }
 
@@ -81,7 +92,7 @@ public class ReservationServiceImpl implements ReservationService {
     @Override
     public ResponseEntity<String> DeleteAllReservation() {
         reservationRepository.findAll();
-        return new ResponseEntity<>(" Alll Reservation Deleted", HttpStatus.OK);
+        return new ResponseEntity<>(" All Reservation Deleted", HttpStatus.OK);
 
     }
 

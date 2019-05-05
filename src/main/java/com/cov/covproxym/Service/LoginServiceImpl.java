@@ -1,34 +1,16 @@
 package com.cov.covproxym.Service;
 
 import com.cov.covproxym.Repository.UserRepository;
-import com.cov.covproxym.Service.LoginService;
-import com.cov.covproxym.exception.Error;
-import com.cov.covproxym.exception.Inscription;
-import com.cov.covproxym.exception.Interdit;
-import com.cov.covproxym.exception.NoUser;
+import com.cov.covproxym.exception.*;
 import com.cov.covproxym.model.User;
-import com.unboundid.ldap.sdk.LDAPException;
-import com.unboundid.ldap.sdk.SearchResult;
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
+import com.cov.covproxym.utils.LoginDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.http.ResponseEntity;
 import org.springframework.ldap.core.*;
-import org.springframework.ldap.core.support.BaseLdapPathContextSource;
-import org.springframework.ldap.core.support.LdapContextSource;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.ldap.DefaultLdapUsernameToDnMapper;
-import org.springframework.security.ldap.search.LdapUserSearch;
 import org.springframework.stereotype.Service;
-import sun.net.www.protocol.http.AuthenticationHeader;
 
-import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
-import javax.naming.directory.Attribute;
 import javax.naming.directory.Attributes;
 import javax.naming.directory.DirContext;
-import java.util.Hashtable;
 import java.util.List;
 import java.util.Optional;
 
@@ -62,28 +44,35 @@ public class LoginServiceImpl implements LoginService {
 
 
     @Override
-    public void authenticated(String username, String password) throws Exception {
+    public Optional<User> authenticated(LoginDto loginDto) throws Exception {
       String uid=getAllPersonNames().toString();
-        boolean isStringExists=uid.contains(username);
+      String username=loginDto.getUsername();
+      String password=loginDto.getPassword();
+
+
+        boolean UserLdap=uid.contains(username);
 
         Optional<User> user = userRepository.findByUsername(username);
-        if (user.isPresent()&&isStringExists==true) {
+        if (user.isPresent()&&UserLdap==true) {
 
             ldapTemplate.authenticate(query().where("uid").is(username), password, mapper);
         }
 
 
-       if  (isStringExists==false){
-            throw  new Interdit () ;
+    if  (UserLdap==false){
+        throw new ApplicationException("You dont have  acces from Ldap ","102");
 
-       }
+    }
 
 
 
-        if(isStringExists==true&& user.isPresent()==false)  {
+       if(UserLdap==true&& user.isPresent()==false)  {
 
-          throw new Inscription();
-      }
+           throw new ApplicationException("You must have a Profil to authenticate ","102");
+     }
+
+      return userRepository.findByUsername(username);
+
 
     }
 

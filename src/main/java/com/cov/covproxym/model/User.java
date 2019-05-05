@@ -6,6 +6,9 @@ import org.hibernate.validator.constraints.Length;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "users")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
@@ -28,11 +31,26 @@ public class User implements Serializable  {
     private String Departement;
     @Column (name = "profession")
     private String Profession ;
+    @Column (name = " PhoneNumber ")
+    private int PhoneNumber ;
+
+
+    public int getPhoneNumber() {
+        return PhoneNumber;
+    }
+
+    public void setPhoneNumber(int phoneNumber) {
+        PhoneNumber = phoneNumber;
+    }
 
 
 
     public long getId() {
         return id;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
 

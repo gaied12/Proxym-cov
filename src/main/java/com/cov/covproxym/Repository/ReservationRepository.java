@@ -8,7 +8,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 import java.util.Optional;
 
-public interface ReservationRepository extends JpaRepository<Reservation,Long> {
+public interface ReservationRepository extends JpaRepository<Reservation, Long> {
     List<Reservation> findAllByPublicationTrajet(PublicationTrajet publicationTrajet);
-Optional<Reservation>findAllByUser(User user);
+
+//    Optional<Reservation> findAllByUser(User user);
+//
+  Optional<Reservation> findFirsByUserAndPublicationTrajet(User user, PublicationTrajet publicationTrajet);
+//
+//    Optional<Reservation> findUserByPublicationTrajet_Id(long id);
+
 }

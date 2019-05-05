@@ -1,5 +1,6 @@
 package com.cov.covproxym.controller;
 
+import com.cov.covproxym.Repository.ReservationRepository;
 import com.cov.covproxym.Service.PublicationTrajetSercice;
 import com.cov.covproxym.Service.ReservationService;
 import com.cov.covproxym.model.Reservation;
@@ -14,29 +15,40 @@ import java.util.Optional;
 
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
+
 public class ReservationController {
     @Autowired
-    ReservationService reservationService ;
+    ReservationService reservationService;
     @Autowired
-    PublicationTrajetSercice publicationTrajetSercice ;
+    PublicationTrajetSercice publicationTrajetSercice;
+    @Autowired
+    ReservationRepository reservationRepository;
 
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public Map<String, Boolean> save(@RequestBody ReservationDto reservationDto) {
+    @RequestMapping(value = "/add/res", method = RequestMethod.POST)
+    public Map <String,Boolean> save(@RequestBody ReservationDto reservationDto) {
 
-           reservationService.save(reservationDto);
-
+         reservationService.save(reservationDto);
         return Collections.singletonMap("success", true);
+
+
     }
-@RequestMapping(value = "/show/{id}",method =RequestMethod.GET )
-    public Optional <Reservation> show (@PathVariable long id){
+
+    @RequestMapping(value = "/show/{id}", method = RequestMethod.GET)
+    public Optional<Reservation> show(@PathVariable long id) {
 
         return reservationService.ShowReservation(id);
-}
-@RequestMapping (value ="/show/all",method = RequestMethod.GET)
-public List<Reservation> showAlll(){
+    }
 
-        return reservationService.resrvation()   ;
-}
+    @RequestMapping(value = "/res/all", method = RequestMethod.GET)
+    public List<Reservation> showAlll() {
+
+
+        return reservationService.resrvation();
+    }
+
+
+
 
 }

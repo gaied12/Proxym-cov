@@ -1,4 +1,4 @@
-package com.cov.covproxym.utils;
+/**package com.cov.covproxym.utils;
 
 import com.cov.covproxym.model.PublicationTrajet;
 import com.cov.covproxym.model.Trajet;
@@ -6,66 +6,76 @@ import com.cov.covproxym.model.User;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Date;
 
 
 public class Publication {
-    private Long userId;
-    private Long trajetId;
-    private String heure_depart;
-    private Boolean disponibilte_trajet;
-    private int nbr_place;
+    private Long UserId;
+    private Long TrajetId;
+    private String HeureDeDepart;
+    private String TrajetDiscription;
+    private String DateAnnonce ;
+    private int NombreDePlace;
+    private int PhoneNumber ;
 
-
-    public String getHeure_depart() {
-        return heure_depart;
+    public int getPhoneNumber() {
+        return PhoneNumber;
     }
 
-    public void setHeure_depart(String heure_depart) {
-        this.heure_depart = heure_depart;
+    public void setPhoneNumber(int phoneNumber) {
+        PhoneNumber = phoneNumber;
     }
 
-    public Boolean getDisponibilte_trajet() {
-        return disponibilte_trajet;
+    public String getDateAnnonce() {
+        return DateAnnonce;
     }
 
-    public void setDisponibilte_trajet(Boolean disponibilte_trajet) {
-        this.disponibilte_trajet = disponibilte_trajet;
+    public void setDateAnnonce(String dateAnnonce) {
+        DateAnnonce = dateAnnonce;
     }
 
-    public int getNbr_place() {
-        return nbr_place;
+    public String getHeureDeDepart() {
+        return HeureDeDepart;
     }
 
-    public void setNbr_place(int nbr_place) {
-        this.nbr_place = nbr_place;
+    public void setHeureDeDepart(String heureDeDepart) {
+        HeureDeDepart = heureDeDepart;
+    }
+
+    public String getTrajetDiscription() {
+        return TrajetDiscription;
+    }
+
+    public void setTrajetDiscription(String trajetDiscription) {
+        TrajetDiscription = trajetDiscription;
+    }
+
+    public int getNombreDePlace() {
+        return NombreDePlace;
+    }
+
+    public void setNombreDePlace(int nombreDePlace) {
+        NombreDePlace = nombreDePlace;
     }
 
     public Long getUserId() {
-        return userId;
+        return UserId;
     }
 
     public void setUserId(Long userId) {
-        this.userId = userId;
+        UserId = userId;
     }
 
     public Long getTrajetId() {
-        return trajetId;
+        return TrajetId;
     }
 
     public void setTrajetId(Long trajetId) {
-        this.trajetId = trajetId;
-    }
-
-    public Publication(Long userId, Long trajetId, String heure_depart, Boolean disponibilte_trajet, int nbr_place) {
-        this.userId = userId;
-        this.trajetId = trajetId;
-        this.heure_depart = heure_depart;
-        this.disponibilte_trajet = disponibilte_trajet;
-        this.nbr_place = nbr_place;
+        TrajetId = trajetId;
     }
 
     public Publication() {
 
     }
 }
+*/

@@ -3,20 +3,16 @@ package com.cov.covproxym.Service;
 import com.cov.covproxym.Repository.PublicationTrajetRepository;
 import com.cov.covproxym.Repository.TrajetRepository;
 import com.cov.covproxym.Repository.UserRepository;
-import com.cov.covproxym.exception.NotFoundException;
 import com.cov.covproxym.model.PublicationTrajet;
+import com.cov.covproxym.model.Reservation;
 import com.cov.covproxym.model.Trajet;
 import com.cov.covproxym.model.User;
-import com.cov.covproxym.utils.Publication;
+import com.cov.covproxym.utils.PublicationTrajetDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 
-import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -39,9 +35,9 @@ public class PublicationTrajetSerciceImpl implements PublicationTrajetSercice {
         Optional<PublicationTrajet> pubData = publicationtrajetRepository.findById(id);
         if (pubData.isPresent()) {
             PublicationTrajet _pub = pubData.get();
-            _pub.setHeure_depart(publicationTrajet.getHeure_depart());
-            _pub.setNbr_place(publicationTrajet.getNbr_place());
-            _pub.setDisponibilte_trajet(publicationTrajet.isDisponibilte_trajet());
+            _pub.setHeureDeDepart(publicationTrajet.getHeureDeDepart());
+            _pub.setNombreDePlace(publicationTrajet.getNombreDePlace());
+            _pub.setTrajetDiscription(publicationTrajet.getTrajetDiscription());
             return new ResponseEntity<>(publicationtrajetRepository.save(_pub), HttpStatus.ACCEPTED);
 
 
@@ -52,22 +48,13 @@ public class PublicationTrajetSerciceImpl implements PublicationTrajetSercice {
     }
 
     @Override
-    public ResponseEntity<String> deletepub(Long id) {
-        Optional<PublicationTrajet> pubData = publicationtrajetRepository.findById(id);
-        if (pubData.isPresent()) {
-            publicationtrajetRepository.deleteById(id);
-            return new ResponseEntity<>("Pub Deleted", HttpStatus.OK);
-
-        }
-        return new ResponseEntity<>("pub Not Found", HttpStatus.NOT_FOUND);
-
-
+    public void deletepub(long id) {
+        this.publicationtrajetRepository.deleteById(id);
     }
 
     @Override
-    public ResponseEntity<String> deleteall() {
+    public void removeall() {
         publicationtrajetRepository.deleteAll();
-        return new ResponseEntity<>("All pub Deleted", HttpStatus.OK);
 
 
     }
@@ -86,7 +73,7 @@ public class PublicationTrajetSerciceImpl implements PublicationTrajetSercice {
 
 
     @Override
-    public void save(Publication publication) {
+    public PublicationTrajet save(PublicationTrajetDto publication) {
         PublicationTrajet publicationTrajet = new PublicationTrajet();
 
 
@@ -96,16 +83,15 @@ public class PublicationTrajetSerciceImpl implements PublicationTrajetSercice {
         Optional<Trajet>trajet=trajetRepository.findById(publication.getTrajetId());
         if (trajet.isPresent())
             publicationTrajet.setTrajet(trajet.get());
-        //  publicationTrajet.setUser(user.get());
-        //publicationTrajet.setTrajet(trajet.get());
 
 
-        publicationTrajet.setHeure_depart(publication.getHeure_depart());
-        publicationTrajet.setDisponibilte_trajet(publication.getDisponibilte_trajet());
-        publicationTrajet.setNbr_place(publication.getNbr_place());
+        publicationTrajet.setHeureDeDepart(publication.getHeureDeDepart());
+        publicationTrajet.setTrajetDiscription(publication.getTrajetDiscription());
+        publicationTrajet.setNombreDePlace(publication.getNombreDePlace());
+        publicationTrajet.setDateAnnonce(publication.getDateAnnonce());
 
 
-        publicationtrajetRepository.save(publicationTrajet);
+       return publicationtrajetRepository.save(publicationTrajet);
 
     }
 
@@ -113,6 +99,20 @@ public class PublicationTrajetSerciceImpl implements PublicationTrajetSercice {
     @Override
     public Optional<PublicationTrajet> showpub(long id) {
         return publicationtrajetRepository.findById(id);
+    }
+
+    @Override
+    public List<User> findAllUserForPublication(Long id) {
+        List<User> users=new ArrayList<>();
+       Optional<PublicationTrajet> publicationTrajetOptional= publicationTrajetRepository.findById(id);
+       if (publicationTrajetOptional.isPresent()){
+           PublicationTrajet publicationTrajet=publicationTrajetOptional.get();
+           List<Reservation> list=publicationTrajet.getReservations();
+           list.forEach(reservation -> {
+               users.add(reservation.getUser());
+           });
+       }
+        return users;
     }
 
 

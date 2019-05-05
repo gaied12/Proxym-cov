@@ -1,12 +1,15 @@
 package com.cov.covproxym.model;
 
 import com.fasterxml.jackson.annotation.*;
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "publicationtrajets")
@@ -16,46 +19,90 @@ public class PublicationTrajet implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column (name = "id",unique = true,nullable = false)
+    @Column(name = "id", unique = true, nullable = false)
     private long id;
-    @Column(name = "nbre de place ",nullable = false)
-    @Max(5)
-    private int nbr_place;
-    @Column(name = "heure_depart")
-    private String heure_depart;
-    @Column(name = "disponibilte_trajet")
-    private Boolean disponibilte_trajet;
+    @Column(name = "NombreDePlace ", nullable = false)
+    @Max(4)
+    private int NombreDePlace;
+    @Column(name = "HeureDeDepart")
+    private String HeureDeDepart;
+    @Column(name = "TrajetDescription")
+    private String TrajetDiscription;
 
 
+    @Column(name = "DateAnnonce")
+
+    private String DateAnnonce;
     @CreationTimestamp
-    @Temporal(TemporalType.DATE)
-    @Column(name = "date_publication")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm", timezone = "UTC")
-    private Date publicationDate;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "Date_creation")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm", timezone = "UTC")
+    private Date Datecreation;
 
-    @OneToOne(fetch = FetchType.LAZY, targetEntity =Trajet.class)
-    @JoinColumn(name = "trajet_id", nullable = false)
+
+
+    @OneToOne
+    @JoinColumn(name = "TrajetId", nullable = false)
     private Trajet trajet;
 
-    @OneToOne(fetch = FetchType.LAZY ,targetEntity = User.class)
-    @JoinColumn(name = "user_id", nullable = false)
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+    @JoinColumn(name = "UserId", nullable = false)
     private User user;
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @JsonIgnore
+    private List<Reservation> reservations;
 
 
 
+    public PublicationTrajet() {
 
-    public void setUser(User user) {
-        this.user = user;
     }
-    public Boolean getDisponibilte_trajet() {
-        return disponibilte_trajet;
+
+    public long getId() {
+        return id;
     }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public int getNombreDePlace() {
+        return NombreDePlace;
+    }
+
+    public void setNombreDePlace(int nombreDePlace) {
+        NombreDePlace = nombreDePlace;
+    }
+
+    public String getHeureDeDepart() {
+        return HeureDeDepart;
+    }
+
+    public void setHeureDeDepart(String heureDeDepart) {
+        HeureDeDepart = heureDeDepart;
+    }
+
+    public String getTrajetDiscription() {
+        return TrajetDiscription;
+    }
+
+    public void setTrajetDiscription(String trajetDiscription) {
+        TrajetDiscription = trajetDiscription;
+    }
+
+    public String getDateAnnonce() {
+        return DateAnnonce;
+    }
+
+    public void setDateAnnonce(String dateAnnonce) {
+        DateAnnonce = dateAnnonce;
+    }
+
 
 
     public Trajet getTrajet() {
         return trajet;
     }
-
 
     public void setTrajet(Trajet trajet) {
         this.trajet = trajet;
@@ -65,67 +112,18 @@ public class PublicationTrajet implements Serializable {
         return user;
     }
 
-    public void setUser() {
+    public void setUser(User user) {
         this.user = user;
     }
 
-    public PublicationTrajet() {
-
+    public List<Reservation> getReservations() {
+        return reservations;
     }
 
-
-    @Override
-    public String toString() {
-        return "Publication_trajet{" + "id=" + id + ", nbr_place=" + nbr_place + ", publicationDate=" + publicationDate + ", heure_depart='" + heure_depart + '\'' + '}';
+    public void setReservations(List<Reservation> reservations) {
+        this.reservations = reservations;
     }
 
-
-    public long getId() {
-        return id;
-    }
-
-    public PublicationTrajet(int nbr_place, Date publicationDate, String heure_depart, Boolean disponibilte_trajet) {
-        this.nbr_place = nbr_place;
-        this.publicationDate = publicationDate;
-        this.heure_depart = heure_depart;
-        this.disponibilte_trajet = disponibilte_trajet;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public Boolean isDisponibilte_trajet() {
-        return disponibilte_trajet;
-    }
-
-    public void setDisponibilte_trajet(Boolean disponibilte_trajet) {
-        this.disponibilte_trajet = disponibilte_trajet;
-    }
-
-    public int getNbr_place() {
-        return nbr_place;
-    }
-
-    public void setNbr_place(int nbr_place) {
-        this.nbr_place = nbr_place;
-    }
-
-    public Date getPublicationDate() {
-        return publicationDate;
-    }
-
-    public void setPublicationDate(Date publicationDate) {
-        this.publicationDate = publicationDate;
-    }
-
-    public String getHeure_depart() {
-        return heure_depart;
-    }
-
-    public void setHeure_depart(String heure_depart) {
-        this.heure_depart = heure_depart;
-    }
 
 
 }

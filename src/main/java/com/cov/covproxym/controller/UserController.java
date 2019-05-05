@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -20,14 +21,22 @@ public class UserController {
     private UserService userService ;
 @RequestMapping(value = "/add/user",method = RequestMethod.POST)
     public User save( @RequestBody User user) {
-        return userService.saveUser(user);
+
+    return userService.saveUser(user);
     }
     @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
-    public Optional<User> showpub(@PathVariable long id) {
-        return userService.findById(id);
+    public Optional<User> ShowUser(@PathVariable long id) {
+
+    return userService.findById(id);
     }
+
+@RequestMapping(value = "/user/all", method = RequestMethod.GET)
+public List<User> ShowUsers(){
+    return  userRepository.findAll() ;
 }
 
 
+
+}
 
 

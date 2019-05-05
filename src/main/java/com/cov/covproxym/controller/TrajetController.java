@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
+
 public class TrajetController {
     @Autowired
     TrajetRepository trajetRepository ;
@@ -30,6 +32,11 @@ public class TrajetController {
     public Optional<Trajet>showtrajet (@PathVariable long id){
         return trajetService.showtrajet(id);
     }
+    @RequestMapping(value = "t/all",method=RequestMethod.GET)
+    public List< Trajet> trajetss(){
+        return trajetRepository.findAll();
+    }
 
 
 }
+

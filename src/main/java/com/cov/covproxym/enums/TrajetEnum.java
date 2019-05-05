@@ -1,8 +1,8 @@
 package com.cov.covproxym.enums;
 
 public enum TrajetEnum {
-   TRAJET1("Direction sahoul","pépenieur","sahloul"),
-    TRAJET2("Direction cité riadh","pépenieur","cité radth");
+   TRAJET1("Direction sahoul","pépenieur","sousse"),
+    TRAJET2("Direction cité riadh","pépenieur","sahloul");
 
 
 

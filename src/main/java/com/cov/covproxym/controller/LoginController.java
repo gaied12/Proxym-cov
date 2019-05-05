@@ -1,14 +1,14 @@
 package com.cov.covproxym.controller;
 
 import com.cov.covproxym.Service.LoginService;
+import com.cov.covproxym.model.User;
+import com.cov.covproxym.utils.LoginDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/api")
 @CrossOrigin(origins = "http://localhost:4200")
@@ -28,9 +28,9 @@ public class LoginController {
 
     @RequestMapping(value = "/user/login", method = RequestMethod.POST)
 
-    public Map<String, Boolean> save(@RequestParam ("username")String username, @RequestParam String password) throws Exception {
-       loginService.authenticated(username,password);
-        return Collections.singletonMap("Authenticated successful with"+username, true);
+    public Optional<User> save(@RequestBody LoginDto loginDto) throws Exception {
+      return loginService.authenticated(loginDto);
+
 
 
     }

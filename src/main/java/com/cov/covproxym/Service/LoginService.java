@@ -1,15 +1,13 @@
 package com.cov.covproxym.Service;
 
-import com.sun.jndi.ldap.LdapClient;
-import com.sun.jndi.ldap.LdapResult;
-import com.unboundid.ldap.sdk.LDAPException;
-import org.springframework.http.ResponseEntity;
-import org.springframework.ldap.core.support.BaseLdapPathContextSource;
+import com.cov.covproxym.model.User;
+import com.cov.covproxym.utils.LoginDto;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface LoginService {
-public void authenticated (String pass,String username) throws Exception;
+public Optional<User> authenticated (LoginDto loginDto) throws Exception;
 public List<String> getAllPersonNames() ;
 public List<String>gellAllPassword();
 }

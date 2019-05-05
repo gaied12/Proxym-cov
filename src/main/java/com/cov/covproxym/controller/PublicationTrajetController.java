@@ -4,22 +4,22 @@ import com.cov.covproxym.Repository.PublicationTrajetRepository;
 import com.cov.covproxym.Repository.TrajetRepository;
 import com.cov.covproxym.Service.PublicationTrajetSercice;
 import com.cov.covproxym.Service.TrajetService;
-import com.cov.covproxym.exception.NotFoundException;
 import com.cov.covproxym.model.PublicationTrajet;
 import com.cov.covproxym.model.User;
-import com.cov.covproxym.utils.Publication;
+import com.cov.covproxym.utils.PublicationTrajetDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
-import javax.validation.Valid;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
+
 public class PublicationTrajetController {
     @Autowired
     PublicationTrajetRepository publicationTrajetRepository;
@@ -31,9 +31,8 @@ public class PublicationTrajetController {
     TrajetService trajetService;
 
     @RequestMapping(value = "/pub", method = RequestMethod.POST)
-    public Map<String, Boolean> save(@RequestBody Publication publication) {
-        publicationtrajetService.save(publication);
-        return Collections.singletonMap("success", true);
+    public PublicationTrajet save(@RequestBody PublicationTrajetDto publication) {
+        return publicationtrajetService.save(publication);
     }
 
 
@@ -43,24 +42,40 @@ public class PublicationTrajetController {
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<String> deletepub(@PathVariable long id) {
+    public Map<String, String> deletepub(@PathVariable long id) {
 
-        return publicationtrajetService.deletepub(id);
+        publicationtrajetService.deletepub(id);
+        return Collections.singletonMap("success", "true");
+
     }
 
-    @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
-    public ResponseEntity<String> deletall() {
+    @RequestMapping(value = "/delete/all", method = RequestMethod.DELETE)
+    public void deletall() {
 
-        return publicationtrajetService.deleteall();
+        publicationtrajetService.removeall();
     }
 
-    @RequestMapping(value = "/all", method = RequestMethod.GET)
+
+    @RequestMapping(value = "/findAllUserForPublication/{id}", method = RequestMethod.GET)
+    public List<User> findAllUserForPublication(@PathVariable Long id) {
+
+        return publicationtrajetService.findAllUserForPublication(id);
+    }
+
+    @RequestMapping(value = "/pub/all", method = RequestMethod.GET)
     public List<PublicationTrajet> showpubs() {
+
         return publicationtrajetService.showpubs();
     }
 
-    @RequestMapping(value = "/all/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/pub/{id}", method = RequestMethod.GET)
     public Optional<PublicationTrajet> showpub(@PathVariable long id) {
-        return publicationtrajetService.showpub(id);
+        Optional<PublicationTrajet> publicationTrajet = publicationtrajetService.showpub(id);
+        if (publicationTrajet.isPresent())
+
+        return     publicationtrajetService.findById(id);
+
+
+        return publicationTrajet;
     }
 }
