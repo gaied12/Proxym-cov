@@ -66,6 +66,8 @@ public class ReservationServiceImpl implements ReservationService {
         if (nbPlaceFromPublication == nbPlaceFromReservation || nbPlaceFromReservation > nbPlaceFromPublication)
             throw new ApplicationException("no_place_available", "102");
        publicationTrajet.getReservations().add(reservation);
+
+
        this.publicationTrajetRepository.save(publicationTrajet);
     }
 

@@ -1,11 +1,9 @@
 package com.cov.covproxym.Service;
 
 import com.cov.covproxym.Repository.PublicationTrajetRepository;
-import com.cov.covproxym.Repository.TrajetRepository;
 import com.cov.covproxym.Repository.UserRepository;
 import com.cov.covproxym.model.PublicationTrajet;
 import com.cov.covproxym.model.Reservation;
-import com.cov.covproxym.model.Trajet;
 import com.cov.covproxym.model.User;
 import com.cov.covproxym.utils.PublicationTrajetDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +20,7 @@ import java.util.Optional;
 public class PublicationTrajetSerciceImpl implements PublicationTrajetSercice {
     @Autowired
     PublicationTrajetRepository publicationtrajetRepository;
-    @Autowired
-    TrajetRepository trajetRepository;
+
     @Autowired
     PublicationTrajetRepository publicationTrajetRepository;
     @Autowired
@@ -80,10 +77,9 @@ public class PublicationTrajetSerciceImpl implements PublicationTrajetSercice {
          Optional<User>user= userRepository.findById(publication.getUserId());
          if(user.isPresent())
              publicationTrajet.setUser(user.get());
-        Optional<Trajet>trajet=trajetRepository.findById(publication.getTrajetId());
-        if (trajet.isPresent())
-            publicationTrajet.setTrajet(trajet.get());
 
+publicationTrajet.setDepart(publication.getDepart());
+        publicationTrajet.setDestination(publication.getDestination());
 
         publicationTrajet.setHeureDeDepart(publication.getHeureDeDepart());
         publicationTrajet.setTrajetDiscription(publication.getTrajetDiscription());

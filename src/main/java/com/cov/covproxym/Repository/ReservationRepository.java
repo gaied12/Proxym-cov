@@ -11,10 +11,6 @@ import java.util.Optional;
 public interface ReservationRepository extends JpaRepository<Reservation, Long> {
     List<Reservation> findAllByPublicationTrajet(PublicationTrajet publicationTrajet);
 
-//    Optional<Reservation> findAllByUser(User user);
-//
   Optional<Reservation> findFirsByUserAndPublicationTrajet(User user, PublicationTrajet publicationTrajet);
-//
-//    Optional<Reservation> findUserByPublicationTrajet_Id(long id);
 
 }

@@ -15,13 +15,13 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 
     @ExceptionHandler(value = {ApplicationException.class})
     protected ResponseEntity < Object >  handleConflict(ApplicationException ex) {
-        return ResponseEntity.ok().headers(null).body(new ExceptionMetaData(ex.getCode(),ex.getMessage()));
+        return ResponseEntity.ok().headers((HttpHeaders) null).body(new ExceptionMetaData(ex.getCode(),ex.getMessage()));
 
     }
 
     @ExceptionHandler(value = {RuntimeException.class})
     protected ResponseEntity < Object >
     handleConflict(RuntimeException ex) {
-        return ResponseEntity.ok().headers(null).body(new ExceptionMetaData("100","Error generale not handling"));
+        return ResponseEntity.ok().headers((HttpHeaders) null).body(new ExceptionMetaData("100","Error generale not handling"));
     }
 }

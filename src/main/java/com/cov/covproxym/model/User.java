@@ -33,7 +33,18 @@ public class User implements Serializable  {
     private String Profession ;
     @Column (name = " PhoneNumber ")
     private int PhoneNumber ;
+    @Column(name = "password")
+    private String Paswword ;
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    private List<Code>codes ;
 
+    public String getPaswword() {
+        return Paswword;
+    }
+
+    public void setPaswword(String paswword) {
+        Paswword = paswword;
+    }
 
     public int getPhoneNumber() {
         return PhoneNumber;

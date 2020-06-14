@@ -1,9 +1,7 @@
 package com.cov.covproxym.controller;
 
 import com.cov.covproxym.Repository.PublicationTrajetRepository;
-import com.cov.covproxym.Repository.TrajetRepository;
 import com.cov.covproxym.Service.PublicationTrajetSercice;
-import com.cov.covproxym.Service.TrajetService;
 import com.cov.covproxym.model.PublicationTrajet;
 import com.cov.covproxym.model.User;
 import com.cov.covproxym.utils.PublicationTrajetDto;
@@ -25,10 +23,7 @@ public class PublicationTrajetController {
     PublicationTrajetRepository publicationTrajetRepository;
     @Autowired
     PublicationTrajetSercice publicationtrajetService;
-    @Autowired
-    TrajetRepository trajetRepository;
-    @Autowired
-    TrajetService trajetService;
+
 
     @RequestMapping(value = "/pub", method = RequestMethod.POST)
     public PublicationTrajet save(@RequestBody PublicationTrajetDto publication) {

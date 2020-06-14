@@ -5,7 +5,9 @@ import java.util.Date;
 
 public class PublicationTrajetDto {
  private Long UserId;
- private Long TrajetId;
+ private String Depart;
+ private String Destination;
+
  private String HeureDeDepart;
  private String TrajetDiscription;
  private String DateAnnonce ;
@@ -52,15 +54,23 @@ public class PublicationTrajetDto {
  UserId = userId;
  }
 
- public Long getTrajetId() {
- return TrajetId;
+ public String getDepart() {
+  return Depart;
  }
 
- public void setTrajetId(Long trajetId) {
- TrajetId = trajetId;
+ public void setDepart(String depart) {
+  Depart = depart;
  }
 
-    public PublicationTrajetDto() {
+ public String getDestination() {
+  return Destination;
+ }
+
+ public void setDestination(String destination) {
+  Destination = destination;
+ }
+
+ public PublicationTrajetDto() {
     }
 }
 

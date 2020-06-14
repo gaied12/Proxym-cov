@@ -41,9 +41,11 @@ public class PublicationTrajet implements Serializable {
 
 
 
-    @OneToOne
-    @JoinColumn(name = "TrajetId", nullable = false)
-    private Trajet trajet;
+    @Column(name = "Depart")
+    private String Depart;
+    @Column(name = " Destination")
+
+    private String Destination;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     @JoinColumn(name = "UserId", nullable = false)
@@ -98,14 +100,20 @@ public class PublicationTrajet implements Serializable {
         DateAnnonce = dateAnnonce;
     }
 
-
-
-    public Trajet getTrajet() {
-        return trajet;
+    public String getDepart() {
+        return Depart;
     }
 
-    public void setTrajet(Trajet trajet) {
-        this.trajet = trajet;
+    public void setDepart(String depart) {
+        Depart = depart;
+    }
+
+    public String getDestination() {
+        return Destination;
+    }
+
+    public void setDestination(String destination) {
+        Destination = destination;
     }
 
     public User getUser() {

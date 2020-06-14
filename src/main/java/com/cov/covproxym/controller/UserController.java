@@ -1,6 +1,7 @@
 package com.cov.covproxym.controller;
 
 import com.cov.covproxym.Repository.UserRepository;
+import com.cov.covproxym.Service.LoginService;
 import com.cov.covproxym.Service.UserService;
 import com.cov.covproxym.model.PublicationTrajet;
 import com.cov.covproxym.model.User;
@@ -19,6 +20,7 @@ public class UserController {
     private UserRepository userRepository ;
     @Autowired
     private UserService userService ;
+
 @RequestMapping(value = "/add/user",method = RequestMethod.POST)
     public User save( @RequestBody User user) {
 
