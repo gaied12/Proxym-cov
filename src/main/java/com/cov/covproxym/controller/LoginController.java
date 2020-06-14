@@ -12,6 +12,10 @@ import org.springframework.web.bind.annotation.*;
 public class LoginController {
 @Autowired
 LoginService loginService ;
+    @RequestMapping(method = RequestMethod.GET,value = "")
+    public String test(){
+        return "welcome to azure ";
+    }
     @RequestMapping(method = RequestMethod.POST,value = "/auth")
     public User auth(@RequestBody LoginDto loginDto) throws Exception{
         return loginService.authenticated(loginDto);
