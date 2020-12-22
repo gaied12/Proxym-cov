@@ -7,15 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*", allowedHeaders = "*", maxAge = 3600)
 
 public class LoginController {
 @Autowired
 LoginService loginService ;
-    @RequestMapping(method = RequestMethod.GET,value = "")
-    public String test(){
-        return "welcome to azure ";
-    }
+    
     @RequestMapping(method = RequestMethod.POST,value = "/auth")
     public User auth(@RequestBody LoginDto loginDto) throws Exception{
         return loginService.authenticated(loginDto);

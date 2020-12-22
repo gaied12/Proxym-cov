@@ -50,6 +50,13 @@ public class ReservationServiceImpl implements ReservationService {
         if (user==null  || publicationTrajet==null) {
          //TODO create exception
         }
+        Optional <User> userRes=userRepository.findById(reservationDto.getUserId());
+        Optional<User>userPub= Optional.ofNullable(publicationTrajetOptional.get().getUser());
+        if (userRes.equals(userPub)){
+            throw new ApplicationException("this User is the  owner ", "99");
+
+
+        }
 
 
 
@@ -61,11 +68,14 @@ public class ReservationServiceImpl implements ReservationService {
 
         Integer nbPlaceFromPublication =publicationTrajet.getNombreDePlace();
 
-        List<Reservation> list = reservationRepository.findAllByPublicationTrajet(publicationTrajet);
-        Integer nbPlaceFromReservation = list.size();
-        if (nbPlaceFromPublication == nbPlaceFromReservation || nbPlaceFromReservation > nbPlaceFromPublication)
+     //   List<Reservation> list = reservationRepository.findAllByPublicationTrajet(publicationTrajet);
+       // Integer nbPlaceFromReservation = list.size();
+        if (nbPlaceFromPublication == 0)
             throw new ApplicationException("no_place_available", "102");
+
+
        publicationTrajet.getReservations().add(reservation);
+       publicationTrajet.setNombreDePlace(nbPlaceFromPublication-1);
 
 
        this.publicationTrajetRepository.save(publicationTrajet);

@@ -47,9 +47,21 @@ public class PublicationTrajet implements Serializable {
 
     private String Destination;
 
+    public Trajet getTrajet() {
+        return trajet;
+    }
+
+    public void setTrajet(Trajet trajet) {
+        this.trajet = trajet;
+    }
+
     @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     @JoinColumn(name = "UserId", nullable = false)
     private User user;
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @JoinColumn(name = "TrajetId", nullable = false)
+    private Trajet trajet;
+
     @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
     @JsonIgnore
     private List<Reservation> reservations;

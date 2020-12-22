@@ -16,74 +16,69 @@ import java.util.List;
 public class User implements Serializable  {
     private static final long serialVersionUID = 1L;
 
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column (name = "id",unique = true,nullable = false)
-    private long id;
-    @Column(name = "username",unique = true,nullable =false)
-    private String username;
-    @Column(name = "name")
-    private String Name ;
-    @Column(name = "last_name")
-    private String lastName;
-    @Column(name = "departement")
-    private String Departement;
-    @Column (name = "profession")
-    private String Profession ;
-    @Column (name = " PhoneNumber ")
-    private int PhoneNumber ;
-    @Column(name = "password")
-    private String Paswword ;
-    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
-    private List<Code>codes ;
-
-    public String getPaswword() {
-        return Paswword;
-    }
-
-    public void setPaswword(String paswword) {
-        Paswword = paswword;
-    }
-
-    public int getPhoneNumber() {
-        return PhoneNumber;
-    }
-
-    public void setPhoneNumber(int phoneNumber) {
-        PhoneNumber = phoneNumber;
-    }
-
-
-
     public long getId() {
         return id;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-
-
-    public String getUsername() {
-        return username;
     }
 
     public void setId(long id) {
         this.id = id;
     }
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column (name = "id",unique = true,nullable = false)
+    private long id;
+    @Column(name = "username",unique = true,nullable =false)
+    private String userName;
+    @Column(name = "name")
+    private String firstName ;
+    @Column(name = "last_name")
+    private String lastName;
+    @Column(name = "vMarque")
+    private String vMarque;
 
-
-
-
-    public String getName() {
-        return Name;
+    public String getvMarque() {
+        return vMarque;
     }
 
-    public void setName(String name) {
-        Name = name;
+    public void setvMarque(String vMarque) {
+        this.vMarque = vMarque;
+    }
+
+    public String getSexe() {
+        return sexe;
+    }
+
+    public void setSexe(String sexe) {
+        this.sexe = sexe;
+    }
+
+    @Column(name = "img_path")
+    private String imgPath;
+    @Column(name = "sexe")
+    private String sexe ;
+
+    @Column (name = " PhoneNumber ")
+    private int PhoneNumber ;
+    @Column(name = "password")
+    private String paswword ;
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    private List<Code>codes ;
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public String getLastName() {
@@ -94,20 +89,28 @@ public class User implements Serializable  {
         this.lastName = lastName;
     }
 
-    public String getDepartement() {
-        return Departement;
+    public String getImgPath() {
+        return imgPath;
     }
 
-    public void setDepartement(String departement) {
-        Departement = departement;
+    public void setImgPath(String imgPath) {
+        this.imgPath = imgPath;
     }
 
-    public String getProfession() {
-        return Profession;
+    public int getPhoneNumber() {
+        return PhoneNumber;
     }
 
-    public void setProfession(String profession) {
-        Profession = profession;
+    public void setPhoneNumber(int phoneNumber) {
+        PhoneNumber = phoneNumber;
+    }
+
+    public String getPaswword() {
+        return paswword;
+    }
+
+    public void setPaswword(String paswword) {
+        this.paswword = paswword;
     }
 
     public User (){

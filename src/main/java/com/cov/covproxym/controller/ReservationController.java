@@ -15,7 +15,7 @@ import java.util.Optional;
 
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*", allowedHeaders = "*", maxAge = 3600)
 
 public class ReservationController {
     @Autowired

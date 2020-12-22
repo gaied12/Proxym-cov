@@ -19,20 +19,20 @@ public class LoginServiceImpl implements  LoginService {
 
     @Override
     public User authenticated(LoginDto loginDto) throws Exception {
-        Optional<User>userOptional=this.userRepository.findByUsername(loginDto.getUsername());
-        if (!userOptional.isPresent()) {
-            throw new ApplicationException("username   incorrect incorrect","98");
+        Optional<User>userOptional=this.userRepository.findByUserName(loginDto.getUsername());
 
-
+        if (!userOptional.isPresent() ){
+            throw new ApplicationException(" user or password incorect","98");
         }
         User user=userOptional.get();
+
 
         String passData=user.getPaswword() ;
 
         boolean test= passwordEncoder.matches(loginDto.getPassword(),passData);
 
-        if (userOptional.isPresent() && test==false ){
-            throw new ApplicationException(" password incorrect incorrect","98");
+        if ( test==false ){
+            throw new ApplicationException(" user or password incorect","98");
         }
 
 

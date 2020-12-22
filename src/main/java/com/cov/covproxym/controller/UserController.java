@@ -5,6 +5,7 @@ import com.cov.covproxym.Service.LoginService;
 import com.cov.covproxym.Service.UserService;
 import com.cov.covproxym.model.PublicationTrajet;
 import com.cov.covproxym.model.User;
+import com.cov.covproxym.utils.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*", allowedHeaders = "*", maxAge = 3600)
 
 public class UserController {
     @Autowired
@@ -22,7 +23,7 @@ public class UserController {
     private UserService userService ;
 
 @RequestMapping(value = "/add/user",method = RequestMethod.POST)
-    public User save( @RequestBody User user) {
+    public User save( @RequestBody UserDto user) {
 
     return userService.saveUser(user);
     }
